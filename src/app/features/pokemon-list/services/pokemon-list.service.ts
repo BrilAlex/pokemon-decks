@@ -1,21 +1,26 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, map} from "rxjs";
-import {PokemonListItem, PokemonListResponse} from "../models/pokemon-list.models";
+import {map} from "rxjs";
+import {PokemonListItem, PokemonListResponse, Result} from "../models/pokemon-list.models";
+import {environment} from "../../../../environments/environment";
 
 @Injectable()
 export class PokemonListService {
-  private pokemonList = new BehaviorSubject<PokemonListItem[]>([]);
-  pokemonList$ = this.pokemonList.asObservable();
 
   constructor(private http: HttpClient) {};
 
-  getPokemonList() {
-    this.http
-      .get<PokemonListResponse>("https://pokeapi.co/api/v2/pokemon")
+  getPokemonList(offset: number = 0) {
+    return this.http
+      .get<PokemonListResponse>(`${environment.baseURL}/pokemon`, {params: {limit: 20, offset}})
       .pipe(
-        map((response) => response.results)
-      )
-      .subscribe(results => this.pokemonList.next(results));
+        map((response): Result[] => response.results),
+        map((results): PokemonListItem[] => {
+          return results.map((pokemon, i) => {
+            const id = i + offset + 1;
+            const imageUrl = `${environment.baseImageURL}/${id}.png`;
+            return {...pokemon, id, imageUrl};
+          });
+        }),
+      );
   };
 }

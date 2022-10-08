@@ -1,0 +1,31 @@
+.list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-top: 30px;
+}
+
+.item {
+  position: relative;
+  width: 250px;
+  margin: 10px;
+  padding: 10px;
+  border: 1px solid #747474;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.itemIndex {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+.item .thumbnail, .item .description {
+  text-align: center;
+}
+
+.item .thumbnail img {
+  max-width: 100%;
+}

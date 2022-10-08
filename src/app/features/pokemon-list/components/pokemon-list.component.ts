@@ -6,7 +6,10 @@ import {Observable} from "rxjs";
 @Component({
   selector: "pd-pokemon-list",
   templateUrl: "./pokemon-list.component.html",
-  styleUrls: ["./pokemon-list.component.css"],
+  styleUrls: [
+    "./pokemon-list.component.css",
+    "../../../app.component.css",
+  ],
 })
 export class PokemonListComponent implements OnInit {
   pokemonList$!: Observable<PokemonListItem[]>;
@@ -14,7 +17,10 @@ export class PokemonListComponent implements OnInit {
   constructor(private pokemonListService: PokemonListService) {};
 
   ngOnInit(): void {
-    this.pokemonListService.getPokemonList();
-    this.pokemonList$ = this.pokemonListService.pokemonList$;
+    this.getPokemonList();
+  };
+
+  getPokemonList() {
+    this.pokemonList$ = this.pokemonListService.getPokemonList();
   };
 }

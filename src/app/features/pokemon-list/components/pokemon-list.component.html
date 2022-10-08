@@ -1,5 +1,15 @@
-<div>
-  <div *ngFor="let pokemon of pokemonList$ | async">
-    {{pokemon.name}}
+<div class="container">
+  <div class="list">
+    <div *ngFor="let pokemon of pokemonList$ | async" class="item">
+      <div class="itemIndex">
+        #{{pokemon.id}}
+      </div>
+      <div class="thumbnail">
+        <img [src]="pokemon.imageUrl" [alt]="pokemon.name"/>
+      </div>
+      <div class="description">
+        <h3>{{pokemon.name}}</h3>
+      </div>
+    </div>
   </div>
 </div>
