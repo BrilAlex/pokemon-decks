@@ -1,0 +1,22 @@
+<div class="container">
+  <div *ngIf="pokemon$ | async as pokemon" class="pokemon">
+    <div class="image">
+      <img [src]="pokemon.sprites.other['official-artwork'].front_default" [alt]="pokemon.name"/>
+    </div>
+    <div class="details">
+      <h2>{{pokemon.name}}</h2>
+      <p class="details-row">
+        Types:
+        <span *ngFor="let type of pokemon.types" class="type">
+          {{type.type.name}}
+        </span>
+      </p>
+      <p>
+        Abilities:
+        <span *ngFor="let ability of pokemon.abilities; let isLast = last">
+          {{ability.ability.name}}{{!isLast ? ", " : ""}}
+        </span>
+      </p>
+    </div>
+  </div>
+</div>

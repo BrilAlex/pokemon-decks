@@ -1,6 +1,10 @@
 <div class="container">
   <div class="list">
-    <div *ngFor="let pokemon of pokemonList$ | async" class="item">
+    <div
+      *ngFor="let pokemon of pokemonList$ | async"
+      [routerLink]="['pokemon', pokemon.name]"
+      class="item"
+    >
       <div class="itemIndex">
         #{{pokemon.id}}
       </div>

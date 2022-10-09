@@ -7,6 +7,10 @@ const routes: Routes = [
     pathMatch: "full",
     loadChildren: () => import("./features/pokemon-list/pokemon-list.module").then((m) => m.PokemonListModule),
   },
+  {
+    path: "pokemon",
+    loadChildren: () => import("./features/pokemon/pokemon.module").then((m) => m.PokemonModule),
+  }
 ];
 
 @NgModule({
