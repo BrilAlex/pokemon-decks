@@ -16,3 +16,10 @@ export interface PokemonListResponse {
   previous: string | null
   results: Result[]
 }
+
+export interface PokemonListData {
+  results: PokemonListItem[]
+  offset: number
+  limit: number
+  totalCount: number
+}

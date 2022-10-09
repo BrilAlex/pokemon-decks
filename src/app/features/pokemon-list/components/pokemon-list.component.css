@@ -1,6 +1,6 @@
 .list {
   display: flex;
-  justify-content: flex-start;
+  justify-content: space-evenly;
   align-items: center;
   flex-wrap: wrap;
   padding-top: 30px;
@@ -28,4 +28,26 @@
 
 .item .thumbnail img {
   max-width: 100%;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px;
+}
+
+.pagination button {
+  margin: 10px;
+  padding: 10px 15px;
+  background-color: #fff;
+  color: #ff1616;
+  border: 1px solid #ff1616;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: #ff1616;
+  color: #fff;
 }

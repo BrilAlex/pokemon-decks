@@ -1,6 +1,6 @@
 import {Component, OnInit} from "@angular/core";
 import {PokemonListService} from "../services/pokemon-list.service";
-import {PokemonListItem} from "../models/pokemon-list.models";
+import {PokemonListData} from "../models/pokemon-list.models";
 import {Observable} from "rxjs";
 
 @Component({
@@ -12,15 +12,21 @@ import {Observable} from "rxjs";
   ],
 })
 export class PokemonListComponent implements OnInit {
-  pokemonList$!: Observable<PokemonListItem[]>;
+  pokemonListData$!: Observable<PokemonListData>;
 
-  constructor(private pokemonListService: PokemonListService) {};
+  constructor(private pokemonListService: PokemonListService) {
+  };
 
   ngOnInit(): void {
     this.getPokemonList();
   };
 
   getPokemonList() {
-    this.pokemonList$ = this.pokemonListService.getPokemonList();
+    this.pokemonListService.getPokemonListData();
+    this.pokemonListData$ = this.pokemonListService.pokemonListData$;
+  };
+
+  swapPage(direction: -1 | 1) {
+    this.pokemonListService.swapPage(direction);
   };
 }
