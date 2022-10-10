@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, map} from "rxjs";
+import {BehaviorSubject, map, tap} from "rxjs";
 import {
   PokemonListData,
   PokemonListItem,
@@ -8,16 +8,18 @@ import {
   Result
 } from "../models/pokemon-list.models";
 import {environment} from "../../../../environments/environment";
+import {AppService} from "../../../core/services/app.service";
 
 @Injectable()
 export class PokemonListService {
   private pokemonListData = new BehaviorSubject<PokemonListData>({} as PokemonListData);
   pokemonListData$ = this.pokemonListData.asObservable();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private appService: AppService) {
   };
 
   getPokemonListData(limit: number = 20, offset: number = 0) {
+    this.appService.setAppStatus("loading");
     this.http
       .get<PokemonListResponse>(`${environment.baseURL}/pokemon`, {params: {limit, offset}})
       .pipe(
@@ -30,7 +32,10 @@ export class PokemonListService {
           return {results, offset, limit, totalCount: response.count};
         }),
       )
-      .subscribe(data => this.pokemonListData.next(data));
+      .subscribe(data => {
+        this.pokemonListData.next(data);
+        this.appService.setAppStatus("idle");
+      });
   };
 
   swapPage(direction: -1 | 1) {

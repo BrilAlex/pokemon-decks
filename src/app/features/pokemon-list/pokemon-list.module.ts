@@ -3,6 +3,7 @@ import {PokemonListComponent} from "./components/pokemon-list.component";
 import {PokemonListRoutingModule} from "./pokemon-list-routing.module";
 import {PokemonListService} from "./services/pokemon-list.service";
 import {CommonModule} from "@angular/common";
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import {CommonModule} from "@angular/common";
   ],
   imports: [
     CommonModule,
+    SharedModule,
     PokemonListRoutingModule,
   ],
   providers: [
