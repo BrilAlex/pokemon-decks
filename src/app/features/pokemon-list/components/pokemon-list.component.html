@@ -24,10 +24,13 @@
             </div>
           </div>
         </div>
-        <div class="pagination">
-          <button (click)="swapPage(-1)">Prev</button>
-          <button (click)="swapPage(1)">Next</button>
-        </div>
+        <pd-pagination
+          [totalCount]="pokemonListData.totalCount"
+          [limit]="pokemonListData.limit"
+          [offset]="pokemonListData.offset"
+          (changePageEvent)="changePage($event)"
+        >
+        </pd-pagination>
       </ng-container>
     </ng-template>
   </ng-container>

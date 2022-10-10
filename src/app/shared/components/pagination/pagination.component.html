@@ -1,0 +1,13 @@
+<div class="pagination">
+  <button (click)="swapPage(-1)" [disabled]="offset === 0">Prev</button>
+  <div class="pages">
+    <span
+      *ngFor="let page of pages"
+      [ngClass]="{active: page === currentPage}"
+      (click)="changePage(page)"
+    >
+      {{page}}
+    </span>
+  </div>
+  <button (click)="swapPage(1)" [disabled]="currentPage === pages.length">Next</button>
+</div>

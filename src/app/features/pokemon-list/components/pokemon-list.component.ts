@@ -30,7 +30,7 @@ export class PokemonListComponent implements OnInit {
     this.pokemonListData$ = this.pokemonListService.pokemonListData$;
   };
 
-  swapPage(direction: -1 | 1) {
-    this.pokemonListService.swapPage(direction);
+  changePage(data: {limit: number, offset: number}) {
+    this.pokemonListService.changePage(data.limit, data.offset);
   };
 }

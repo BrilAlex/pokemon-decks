@@ -1,12 +1,7 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, map, tap} from "rxjs";
-import {
-  PokemonListData,
-  PokemonListItem,
-  PokemonListResponse,
-  Result
-} from "../models/pokemon-list.models";
+import {BehaviorSubject, map} from "rxjs";
+import {PokemonListData, PokemonListResponse} from "../models/pokemon-list.models";
 import {environment} from "../../../../environments/environment";
 import {AppService} from "../../../core/services/app.service";
 
@@ -38,9 +33,7 @@ export class PokemonListService {
       });
   };
 
-  swapPage(direction: -1 | 1) {
-    const limit = this.pokemonListData.getValue().limit;
-    const offset = this.pokemonListData.getValue().offset;
-    this.getPokemonListData(limit, offset + limit * direction);
-  }
+  changePage(limit: number, offset: number) {
+    this.getPokemonListData(limit, offset);
+  };
 }
