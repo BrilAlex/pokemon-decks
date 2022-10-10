@@ -20,9 +20,10 @@ export class PokemonListService {
       .pipe(
         map((response): PokemonListData => {
           const results = response.results.map((r, i) => {
-            const id = i + offset + 1;
+            const id = r.url.replace(`${environment.baseURL}/pokemon/`, "").slice(0, -1);
+            const index = i + offset + 1;
             const imageUrl = `${environment.baseImageURL}/${id}.png`;
-            return {...r, id, imageUrl}
+            return {...r, id: index, imageUrl}
           });
           return {results, offset, limit, totalCount: response.count};
         }),
