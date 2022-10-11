@@ -26,4 +26,7 @@ export interface Pokemon {
       }
     }
   }
+  height: number
+  weight: number
+  base_experience: number
 }
