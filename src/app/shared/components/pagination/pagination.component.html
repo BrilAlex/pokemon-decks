@@ -3,11 +3,11 @@
   <div class="pages">
     <span
       *ngFor="let page of pages"
-      [ngClass]="{active: page === currentPage}"
+      [ngClass]="{active: page === currentPage, dots: page === -1}"
       (click)="changePage(page)"
     >
-      {{page}}
+      {{page !== -1 ? page : "..."}}
     </span>
   </div>
-  <button (click)="swapPage(1)" [disabled]="currentPage === pages.length">Next</button>
+  <button (click)="swapPage(1)" [disabled]="currentPage === pagesCount">Next</button>
 </div>

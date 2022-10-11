@@ -47,3 +47,9 @@
   color: #fff;
   cursor: auto;
 }
+
+.pages span.dots {
+  border: none;
+  color: #747474;
+  cursor: auto;
+}
