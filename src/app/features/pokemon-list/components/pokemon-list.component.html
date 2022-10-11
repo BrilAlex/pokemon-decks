@@ -17,10 +17,19 @@
               #{{pokemon.id}}
             </div>
             <div class="thumbnail">
-              <img [src]="pokemon.imageUrl" [alt]="pokemon.name"/>
+              <img
+                [src]="pokemon.sprites.other['official-artwork'].front_default"
+                [alt]="pokemon.name"
+              />
             </div>
             <div class="description">
               <h3>{{pokemon.name}}</h3>
+              <p>
+                Types:
+                <span *ngFor="let type of pokemon.types; let isLast = last">
+                  {{type.type.name}}{{!isLast ? ", " : ""}}
+                </span>
+              </p>
             </div>
           </div>
         </div>

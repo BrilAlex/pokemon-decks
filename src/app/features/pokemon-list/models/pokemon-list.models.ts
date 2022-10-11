@@ -1,9 +1,4 @@
-export interface PokemonListItem {
-  id: number
-  name: string
-  url: string
-  imageUrl: string
-}
+import {Pokemon} from "../../pokemon/models/pokemon.models";
 
 export interface Result {
   name: string
@@ -18,7 +13,7 @@ export interface PokemonListResponse {
 }
 
 export interface PokemonListData {
-  results: PokemonListItem[]
+  results: Pokemon[]
   offset: number
   limit: number
   totalCount: number

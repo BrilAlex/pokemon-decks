@@ -1,9 +1,10 @@
 import {Injectable} from "@angular/core";
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, map} from "rxjs";
+import {BehaviorSubject, forkJoin, map, Observable, switchMap} from "rxjs";
 import {PokemonListData, PokemonListResponse} from "../models/pokemon-list.models";
 import {environment} from "../../../../environments/environment";
 import {AppService} from "../../../core/services/app.service";
+import {Pokemon} from "../../pokemon/models/pokemon.models";
 
 @Injectable()
 export class PokemonListService {
@@ -18,14 +19,13 @@ export class PokemonListService {
     this.http
       .get<PokemonListResponse>(`${environment.baseURL}/pokemon`, {params: {limit, offset}})
       .pipe(
-        map((response): PokemonListData => {
-          const results = response.results.map((r, i) => {
-            const id = r.url.replace(`${environment.baseURL}/pokemon/`, "").slice(0, -1);
-            const index = i + offset + 1;
-            const imageUrl = `${environment.baseImageURL}/${id}.png`;
-            return {...r, id: index, imageUrl}
-          });
-          return {results, offset, limit, totalCount: response.count};
+        switchMap((response): Observable<PokemonListData> => {
+          const detailedResults = response.results.map(r => this.http.get<Pokemon>(r.url));
+
+          return forkJoin(detailedResults)
+            .pipe(
+              map(results => ({results, offset, limit, totalCount: response.count})),
+            );
         }),
       )
       .subscribe(data => {
