@@ -1,24 +1,37 @@
 import {Injectable} from "@angular/core";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpErrorResponse} from "@angular/common/http";
 import {environment} from "../../../../environments/environment";
 import {Pokemon} from "../models/pokemon.models";
-import {BehaviorSubject} from "rxjs";
+import {BehaviorSubject, catchError, EMPTY, tap} from "rxjs";
 import {AppService} from "../../../core/services/app.service";
+import {NotificationService} from "../../../core/services/notification.service";
 
 @Injectable()
 export class PokemonService {
   private pokemon = new BehaviorSubject<Pokemon>({} as Pokemon);
   pokemon$ = this.pokemon.asObservable();
 
-  constructor(private http: HttpClient, private appService: AppService) {};
+  constructor(
+    private http: HttpClient,
+    private appService: AppService,
+    private notificationService: NotificationService,
+  ) {
+  };
 
   getPokemon(name: string) {
     this.appService.setAppStatus("loading");
     this.http
       .get<Pokemon>(`${environment.baseURL}/pokemon/${name}`)
-      .subscribe(data => {
-        this.pokemon.next(data);
-        this.appService.setAppStatus("idle");
-      });
+      .pipe(
+        catchError(this.handleRequestError.bind(this)),
+        tap(() => this.appService.setAppStatus("idle")),
+      )
+      .subscribe(data => this.pokemon.next(data));
+  };
+
+  private handleRequestError(error: HttpErrorResponse) {
+    const message = `${error.status}: ${error.statusText}`;
+    this.notificationService.setNotification({message, type: "error"});
+    return EMPTY;
   };
 }
