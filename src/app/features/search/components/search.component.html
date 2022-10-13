@@ -1,0 +1,26 @@
+<div class="search-container">
+  <input
+    [(ngModel)]="value"
+    (keyup)="search()"
+    placeholder="Search pokemon by name or id"
+  />
+  <ng-container *ngIf="results$ | async as results">
+    <div class="results">
+      <div *ngIf="results.totalItems === 0 else content">
+        <p class="result">No pokemon found</p>
+      </div>
+
+      <ng-template #content>
+        <p
+          *ngFor="let result of results.items"
+          (click)="hideResults()"
+          [routerLink]="['pokemon', result.name]"
+          class="result"
+        >
+          <img [src]="result.imageUrl" [alt]="result.name"/>
+          <span>{{result.name}}</span>
+        </p>
+      </ng-template>
+    </div>
+  </ng-container>
+</div>

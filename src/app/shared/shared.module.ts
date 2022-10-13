@@ -4,6 +4,7 @@ import {HeaderComponent} from "./components/header/header.component";
 import {PreloaderComponent} from "./components/preloader/preloader.component";
 import {PaginationComponent} from "./components/pagination/pagination.component";
 import {NotificationComponent} from "./components/notification/notification.component";
+import {SearchModule} from "../features/search/search.module";
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import {NotificationComponent} from "./components/notification/notification.comp
   ],
   imports: [
     CommonModule,
+    SearchModule,
   ],
   exports: [
     HeaderComponent,
