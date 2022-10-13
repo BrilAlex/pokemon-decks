@@ -1,7 +1,7 @@
 import {NgModule} from "@angular/core";
 import {CommonModule} from "@angular/common";
 import {SearchComponent} from "./components/search.component";
-import {FormsModule} from "@angular/forms";
+import {ReactiveFormsModule} from "@angular/forms";
 import {SearchService} from "./service/search.service";
 import {RouterModule} from "@angular/router";
 
@@ -11,7 +11,7 @@ import {RouterModule} from "@angular/router";
   ],
   imports: [
     CommonModule,
-    FormsModule,
+    ReactiveFormsModule,
     RouterModule,
   ],
   exports: [

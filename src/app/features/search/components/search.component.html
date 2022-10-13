@@ -1,10 +1,9 @@
 <div class="search-container">
   <input
-    [(ngModel)]="value"
-    (keyup)="search()"
+    [formControl]="searchQuery"
     placeholder="Search pokemon by name or id"
   />
-  <ng-container *ngIf="results$ | async as results">
+  <ng-container *ngIf="results">
     <div class="results">
       <div *ngIf="results.totalItems === 0 else content">
         <p class="result">No pokemon found</p>
@@ -13,7 +12,7 @@
       <ng-template #content>
         <p
           *ngFor="let result of results.items"
-          (click)="hideResults()"
+          (click)="clearSearchResults()"
           [routerLink]="['pokemon', result.name]"
           class="result"
         >

@@ -10,11 +10,9 @@ export class SearchService {
   constructor(private http: HttpClient) {
   };
 
-  getSearchResults(searchQuarry: string): Observable<SearchResultsData | null> {
-    if (searchQuarry.trim() === "") return new Observable<null>();
-
+  getSearchResults(searchQuery: string): Observable<SearchResultsData> {
     return this.http
-      .get<Pokemon>(`${environment.baseURL}/pokemon/${searchQuarry}`)
+      .get<Pokemon>(`${environment.baseURL}/pokemon/${searchQuery}`)
       .pipe(
         map(response => {
           const id = response.id;
