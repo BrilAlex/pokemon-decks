@@ -1,0 +1,14 @@
+.appError {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+  font-size: 20px;
+}
+
+.appError h2 {
+  margin-bottom: 25px;
+  font-weight: bold;
+  font-size: calc(1.55rem + 2vw);
+}

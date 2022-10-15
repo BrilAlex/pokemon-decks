@@ -6,41 +6,49 @@
     </div>
 
     <ng-template #content>
-      <ng-container *ngIf="pokemonListData$ | async as pokemonListData">
-        <div class="list">
-          <div
-            *ngFor="let pokemon of pokemonListData.results"
-            [routerLink]="['pokemon', pokemon.name]"
-            class="item"
-          >
-            <div class="itemIndex">
-              #{{pokemon.id}}
-            </div>
-            <div class="thumbnail">
-              <img
-                [src]="pokemon.sprites.other['official-artwork'].front_default"
-                [alt]="pokemon.name"
-              />
-            </div>
-            <div class="description">
-              <h3>{{pokemon.name}}</h3>
-              <p>
-                Types:
-                <span *ngFor="let type of pokemon.types; let isLast = last">
+      <div *ngIf="appStatus === 'error'; else list">
+        <pd-app-error-page></pd-app-error-page>
+      </div>
+
+      <ng-template #list>
+        <ng-container *ngIf="pokemonListData$ | async as pokemonListData">
+          <div class="list">
+            <div
+              *ngFor="let pokemon of pokemonListData.results"
+              [routerLink]="['pokemon', pokemon.name]"
+              class="item"
+            >
+              <div class="itemIndex">
+                #{{pokemon.id}}
+              </div>
+              <div class="thumbnail">
+                <img
+                  [src]="pokemon.sprites.other['official-artwork'].front_default"
+                  [alt]="pokemon.name"
+                />
+              </div>
+              <div class="description">
+                <h3>{{pokemon.name}}</h3>
+                <p>
+                  Types:
+                  <span *ngFor="let type of pokemon.types; let isLast = last">
                   {{type.type.name}}{{!isLast ? ", " : ""}}
                 </span>
-              </p>
+                </p>
+              </div>
             </div>
           </div>
-        </div>
-        <pd-pagination
-          [totalCount]="pokemonListData.totalCount"
-          [limit]="pokemonListData.limit"
-          [offset]="pokemonListData.offset"
-          (changePageEvent)="changePage($event)"
-        >
-        </pd-pagination>
-      </ng-container>
+          <pd-pagination
+            [totalCount]="pokemonListData.totalCount"
+            [limit]="pokemonListData.limit"
+            [offset]="pokemonListData.offset"
+            (changePageEvent)="changePage($event)"
+          >
+          </pd-pagination>
+        </ng-container>
+      </ng-template>
+
     </ng-template>
+
   </ng-container>
 </div>

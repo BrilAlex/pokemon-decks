@@ -6,30 +6,38 @@
 
     <ng-template #content>
       <button [routerLink]="['/']" class="back-button"> < Back</button>
-      <div *ngIf="pokemon$ | async as pokemon" class="pokemon">
-        <div class="image">
-          <img [src]="pokemon.sprites.other['official-artwork'].front_default"
-               [alt]="pokemon.name"/>
-        </div>
-        <div class="details">
-          <h2>{{pokemon.name}}</h2>
-          <p class="details-row">
-            Types:
-            <span *ngFor="let type of pokemon.types" class="type">
+
+      <div *ngIf="appStatus === 'error'; else pokemon">
+        <pd-app-error-page></pd-app-error-page>
+      </div>
+
+      <ng-template #pokemon>
+        <div *ngIf="pokemon$ | async as pokemon" class="pokemon">
+          <div class="image">
+            <img [src]="pokemon.sprites.other['official-artwork'].front_default"
+                 [alt]="pokemon.name"/>
+          </div>
+          <div class="details">
+            <h2>{{pokemon.name}}</h2>
+            <p class="details-row">
+              Types:
+              <span *ngFor="let type of pokemon.types" class="type">
               {{type.type.name}}
             </span>
-          </p>
-          <p class="details-row">
-            Abilities:
-            <span *ngFor="let ability of pokemon.abilities; let isLast = last">
+            </p>
+            <p class="details-row">
+              Abilities:
+              <span *ngFor="let ability of pokemon.abilities; let isLast = last">
               {{ability.ability.name}}{{!isLast ? ", " : ""}}
             </span>
-          </p>
-          <p class="details-row">Height: {{pokemon.height}}</p>
-          <p class="details-row">Weight: {{pokemon.weight}}</p>
-          <p class="details-row">Base experience: {{pokemon.base_experience}}</p>
+            </p>
+            <p class="details-row">Height: {{pokemon.height}}</p>
+            <p class="details-row">Weight: {{pokemon.weight}}</p>
+            <p class="details-row">Base experience: {{pokemon.base_experience}}</p>
+          </div>
         </div>
-      </div>
+      </ng-template>
     </ng-template>
+
   </ng-container>
 </div>

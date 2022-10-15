@@ -5,6 +5,7 @@ import {PreloaderComponent} from "./components/preloader/preloader.component";
 import {PaginationComponent} from "./components/pagination/pagination.component";
 import {NotificationComponent} from "./components/notification/notification.component";
 import {SearchModule} from "../features/search/search.module";
+import {AppErrorPageComponent} from "./components/app-error-page/app-error-page.component";
 
 @NgModule({
   declarations: [
@@ -12,6 +13,7 @@ import {SearchModule} from "../features/search/search.module";
     PreloaderComponent,
     PaginationComponent,
     NotificationComponent,
+    AppErrorPageComponent,
   ],
   imports: [
     CommonModule,
@@ -22,6 +24,7 @@ import {SearchModule} from "../features/search/search.module";
     PreloaderComponent,
     PaginationComponent,
     NotificationComponent,
+    AppErrorPageComponent,
   ],
 })
 export class SharedModule {

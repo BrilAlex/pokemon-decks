@@ -45,6 +45,7 @@ export class PokemonListService {
   private handleRequestError(error: HttpErrorResponse) {
     const message = `${error.status}: ${error.statusText}`;
     this.notificationService.setNotification({message, type: "error"});
+    this.appService.setAppStatus("error");
     return EMPTY;
   };
 }

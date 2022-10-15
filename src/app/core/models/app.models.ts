@@ -1,1 +1,1 @@
-export type RequestStatus = "idle" | "loading";
+export type RequestStatus = "idle" | "loading" | "error";
