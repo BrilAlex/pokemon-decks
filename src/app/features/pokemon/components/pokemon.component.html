@@ -5,7 +5,7 @@
     </div>
 
     <ng-template #content>
-      <button [routerLink]="['/']" class="back-button"> < Back</button>
+      <button (click)="goBack()" class="back-button"> < Back</button>
 
       <div *ngIf="appStatus === 'error'; else pokemon">
         <pd-app-error-page></pd-app-error-page>

@@ -5,6 +5,7 @@ import {Observable} from "rxjs";
 import {Pokemon} from "../models/pokemon.models";
 import {AppService} from "../../../core/services/app.service";
 import {RequestStatus} from "../../../core/models/app.models";
+import {Location} from "@angular/common";
 
 @Component({
   selector: "pd-pokemon",
@@ -23,6 +24,7 @@ export class PokemonComponent implements OnInit {
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
     private appService: AppService,
+    private location: Location,
   ) {};
 
   ngOnInit() {
@@ -34,5 +36,9 @@ export class PokemonComponent implements OnInit {
   getPokemon() {
     this.pokemonService.getPokemon(this.nameParam);
     this.pokemon$ = this.pokemonService.pokemon$;
+  };
+
+  goBack() {
+    this.location.back();
   };
 }
