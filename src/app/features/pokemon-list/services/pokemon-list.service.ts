@@ -19,10 +19,10 @@ export class PokemonListService {
   ) {
   };
 
-  getPokemonListData(limit: number = 20, offset: number = 0) {
+  getPokemonListData(params: {limit: number, offset: number}) {
     this.appService.setAppStatus("loading");
     this.http
-      .get<PokemonListResponse>(`${environment.baseURL}/pokemon`, {params: {limit, offset}})
+      .get<PokemonListResponse>(`${environment.baseURL}/pokemon`, {params})
       .pipe(
         catchError(this.handleRequestError.bind(this)),
         switchMap((response): Observable<PokemonListData> => {
@@ -30,16 +30,20 @@ export class PokemonListService {
 
           return forkJoin(detailedResults)
             .pipe(
-              map(results => ({results, offset, limit, totalCount: response.count})),
+              catchError(this.handleRequestError.bind(this)),
+              map(results => (
+                {
+                  results,
+                  offset: params.offset,
+                  limit: params.limit,
+                  totalCount: response.count
+                }
+              )),
             );
         }),
         tap(() => this.appService.setAppStatus("idle")),
       )
       .subscribe(data => this.pokemonListData.next(data));
-  };
-
-  changePage(limit: number, offset: number) {
-    this.getPokemonListData(limit, offset);
   };
 
   private handleRequestError(error: HttpErrorResponse) {
