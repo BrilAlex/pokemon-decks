@@ -1,0 +1,39 @@
+<div class="section">
+  <div class="container">
+    <div class="pokeDeckPage">
+      <h2>Your PokeDeck</h2>
+      <ng-container *ngIf="deck$ | async as deck">
+        <div *ngIf="deck.length === 0; else pokeDeck" class="emptyDeck">
+          <p>Your PokeDeck is empty.</p>
+          <p>Please, select a pokemon and add it to Your PokeDeck.</p>
+        </div>
+
+        <ng-template #pokeDeck>
+          <div class="pokeDeck">
+            <div *ngFor="let pokemon of deck" class="item">
+              <div class="pokemon">
+                <div>
+                  <img
+                  [src]="pokemon.sprites.other['official-artwork'].front_default"
+                  [alt]="pokemon.name"
+                  class="image"
+                />
+                </div>
+                <div>
+                  <p class="name">{{pokemon.name}}</p>
+                  <p>
+                    Types:
+                    <span *ngFor="let type of pokemon.types; last as isLast">
+                      {{type.type.name}}{{!isLast ? ", " : ""}}
+                    </span>
+                  </p>
+                </div>
+              </div>
+              <button (click)="removeFromDeck(pokemon.id)" class="removeButton">X</button>
+            </div>
+          </div>
+        </ng-template>
+      </ng-container>
+    </div>
+  </div>
+</div>

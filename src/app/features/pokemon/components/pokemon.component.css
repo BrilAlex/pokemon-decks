@@ -49,3 +49,18 @@
   border-radius: 6px;
 }
 
+.addToDeck {
+  padding: 10px 15px;
+  background-color: #fff;
+  color: #ff1616;
+  border: 1px solid #ff1616;
+  border-radius: 5px;
+  cursor: pointer;
+  outline: none;
+  transition: ease-in-out 0.3s;
+}
+
+.addToDeck:hover {
+  background-color: #ff1616;
+  color: #fff;
+}

@@ -1,6 +1,11 @@
 <div class="header">
   <div class="container">
-    <h1>Pokemon Decks</h1>
+    <h1 [routerLink]="['/']">Pokemon Decks</h1>
     <pd-search></pd-search>
+    <ng-container *ngIf="deck$ | async as deck">
+      <a [routerLink]="['deck']" class="deckButton">
+        PokeDeck <span class="itemsCounter">{{deck.length}}</span>
+      </a>
+    </ng-container>
   </div>
 </div>

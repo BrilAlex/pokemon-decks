@@ -6,6 +6,7 @@ import {PaginationComponent} from "./components/pagination/pagination.component"
 import {NotificationComponent} from "./components/notification/notification.component";
 import {SearchModule} from "../features/search/search.module";
 import {AppErrorPageComponent} from "./components/app-error-page/app-error-page.component";
+import {RouterModule} from "@angular/router";
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import {AppErrorPageComponent} from "./components/app-error-page/app-error-page.
   imports: [
     CommonModule,
     SearchModule,
+    RouterModule,
   ],
   exports: [
     HeaderComponent,

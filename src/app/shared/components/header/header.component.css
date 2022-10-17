@@ -5,7 +5,22 @@
 
 .header .container {
   display: flex;
+  justify-content: space-between;
   align-items: center;
   height: 70px;
+}
+
+.deckButton {
+  padding: 5px 10px;
+  border: 2px solid #fff;
+  border-radius: 5px;
+  color: #fff;
+  text-decoration: none;
+}
+
+.itemsCounter {
+  margin-left: 3px;
+  padding-left: 8px;
+  border-left: 1px dotted #fff;
 }
 

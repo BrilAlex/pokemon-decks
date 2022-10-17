@@ -6,6 +6,7 @@ import {Pokemon} from "../models/pokemon.models";
 import {AppService} from "../../../core/services/app.service";
 import {RequestStatus} from "../../../core/models/app.models";
 import {Location} from "@angular/common";
+import {DeckPageService} from "../../deck/services/deck-page.service";
 
 @Component({
   selector: "pd-pokemon",
@@ -25,7 +26,9 @@ export class PokemonComponent implements OnInit {
     private pokemonService: PokemonService,
     private appService: AppService,
     private location: Location,
-  ) {};
+    private deckService: DeckPageService,
+  ) {
+  };
 
   ngOnInit() {
     this.nameParam = this.route.snapshot.paramMap.get("nameParam")!;
@@ -40,5 +43,9 @@ export class PokemonComponent implements OnInit {
 
   goBack() {
     this.location.back();
+  };
+
+  addToDeck(pokemon: Pokemon) {
+    this.deckService.addToDeck(pokemon);
   };
 }

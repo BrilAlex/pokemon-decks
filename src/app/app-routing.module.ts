@@ -10,7 +10,11 @@ const routes: Routes = [
   {
     path: "pokemon",
     loadChildren: () => import("./features/pokemon/pokemon.module").then((m) => m.PokemonModule),
-  }
+  },
+  {
+    path: "deck",
+    loadChildren: () => import("./features/deck/deck-page.module").then((m) => m.DeckPageModule),
+  },
 ];
 
 @NgModule({
