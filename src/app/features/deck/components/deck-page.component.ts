@@ -24,4 +24,8 @@ export class DeckPageComponent implements OnInit {
   removeFromDeck(pokemonId: number) {
     this.deckService.removeFormDeck(pokemonId);
   };
+
+  clearDeck() {
+    this.deckService.clearDeck();
+  };
 }

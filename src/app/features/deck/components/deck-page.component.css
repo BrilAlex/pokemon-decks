@@ -16,6 +16,7 @@
 
 .pokeDeck {
   width: 50%;
+  margin-bottom: 25px;
   padding: 10px;
   border: 1px solid #747474;
   border-radius: 5px;
@@ -49,10 +50,16 @@
   text-transform: capitalize;
 }
 
-.item .removeButton {
+.button {
   padding: 10px 15px;
   background-color: #ff1616;
   color: #fff;
   border: 2px solid #ff1616;
   border-radius: 5px;
+  cursor: pointer;
+}
+
+.button.outlined {
+  background-color: #fff;
+  color: #ff1616;
 }
