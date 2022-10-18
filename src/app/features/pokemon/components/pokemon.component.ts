@@ -2,31 +2,29 @@ import {Component, OnInit} from "@angular/core";
 import {ActivatedRoute} from "@angular/router";
 import {PokemonService} from "../services/pokemon.service";
 import {Observable} from "rxjs";
-import {Pokemon} from "../models/pokemon.models";
+import {DomainPokemon} from "../models/pokemon.models";
 import {AppService} from "../../../core/services/app.service";
 import {RequestStatus} from "../../../core/models/app.models";
 import {Location} from "@angular/common";
-import {DeckPageService} from "../../deck/services/deck-page.service";
 
 @Component({
   selector: "pd-pokemon",
   templateUrl: "./pokemon.component.html",
   styleUrls: [
-    "./pokemon.component.css",
     "../../../app.component.css",
+    "./pokemon.component.css",
   ],
 })
 export class PokemonComponent implements OnInit {
   nameParam = "";
   appStatus$!: Observable<RequestStatus>;
-  pokemon$!: Observable<Pokemon>;
+  pokemon$!: Observable<DomainPokemon>;
 
   constructor(
     private route: ActivatedRoute,
     private pokemonService: PokemonService,
     private appService: AppService,
     private location: Location,
-    private deckService: DeckPageService,
   ) {
   };
 
@@ -45,7 +43,7 @@ export class PokemonComponent implements OnInit {
     this.location.back();
   };
 
-  addToDeck(pokemon: Pokemon) {
-    this.deckService.addToDeck(pokemon);
+  addToDeck() {
+    this.pokemonService.addToDeck();
   };
 }

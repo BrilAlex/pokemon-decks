@@ -30,3 +30,7 @@ export interface Pokemon {
   weight: number
   base_experience: number
 }
+
+export interface DomainPokemon extends Pokemon {
+  isAddedToDeck: boolean
+}

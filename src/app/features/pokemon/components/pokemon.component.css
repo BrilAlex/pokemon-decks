@@ -64,3 +64,14 @@
   background-color: #ff1616;
   color: #fff;
 }
+
+.addToDeck:disabled {
+  color: #747474;
+  border-color: #747474;
+  cursor: auto;
+}
+
+.addToDeck:disabled:hover {
+  background-color: #fff;
+  color: #747474;
+}
