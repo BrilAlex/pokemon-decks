@@ -1,5 +1,5 @@
-import {Component, OnDestroy, OnInit} from "@angular/core";
-import {debounceTime, distinctUntilChanged, Observable, of, Subscription, switchMap} from "rxjs";
+import {Component} from "@angular/core";
+import {debounceTime, distinctUntilChanged, map, Observable, of, switchMap} from "rxjs";
 import {SearchService} from "../service/search.service";
 import {SearchResultsData} from "../models/search.models";
 import {FormControl} from "@angular/forms";
@@ -11,36 +11,23 @@ import {FormControl} from "@angular/forms";
     "./search.component.css",
   ],
 })
-export class SearchComponent implements OnInit, OnDestroy {
+export class SearchComponent {
 
-  searchSubscription!: Subscription;
-  results!: SearchResultsData | null;
+  results$: Observable<SearchResultsData | null>;
   searchQuery = new FormControl();
 
   constructor(private searchService: SearchService) {
-  };
-
-  ngOnInit() {
-    this.searchSubscription = this.searchQuery.valueChanges.pipe(
-      debounceTime(1500),
+    this.results$ = this.searchQuery.valueChanges.pipe(
+      debounceTime(1000),
       distinctUntilChanged(),
-      switchMap((searchQuery: string): Observable<SearchResultsData | null> => {
-        if (searchQuery.trim() === "") {
-          return of(null);
-        }
-        return this.searchService.getSearchResults(searchQuery);
+      map((searchQuery: string) => searchQuery.trim() === "" ? null : searchQuery),
+      switchMap((searchQuery: string | null): Observable<SearchResultsData | null> => {
+        return searchQuery ? this.searchService.getSearchResults(searchQuery) : of(null);
       }),
-    ).subscribe(results => {
-      this.results = results
-    });
+    );
   };
 
   clearSearchResults() {
     this.searchQuery.setValue("");
-    this.results = null;
-  };
-
-  ngOnDestroy() {
-    this.searchSubscription.unsubscribe();
   };
 }
