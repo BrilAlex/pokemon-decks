@@ -1,5 +1,5 @@
 import {Injectable} from "@angular/core";
-import {DomainPokemon} from "../../features/pokemon/models/pokemon.models";
+import {Pokemon} from "../../features/pokemon/models/pokemon.models";
 
 @Injectable({
   providedIn: "root",
@@ -10,7 +10,7 @@ export class DataStorageService {
     return JSON.parse(deckData || "[]");
   };
 
-  setDeckDataInStorage(data: DomainPokemon[]) {
+  setDeckDataInStorage(data: Pokemon[]) {
     localStorage.setItem("pokemon-deck", JSON.stringify(data));
   };
 }

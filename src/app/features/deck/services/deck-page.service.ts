@@ -1,6 +1,6 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
-import {DomainPokemon} from "../../pokemon/models/pokemon.models";
+import {Pokemon} from "../../pokemon/models/pokemon.models";
 import {DataStorageService} from "../../../core/services/data-storage.service";
 
 @Injectable({
@@ -9,13 +9,13 @@ import {DataStorageService} from "../../../core/services/data-storage.service";
 export class DeckPageService {
   private initData = this.dataStorageService.getDeckDataFromStorage();
 
-  private deck = new BehaviorSubject<DomainPokemon[]>(this.initData);
+  private deck = new BehaviorSubject<Pokemon[]>(this.initData);
   deck$ = this.deck.asObservable();
 
   constructor(private dataStorageService: DataStorageService) {
   };
 
-  addToDeck(pokemon: DomainPokemon) {
+  addToDeck(pokemon: Pokemon) {
     const updatedDeck = [pokemon, ...this.deck.getValue()];
     this.dataStorageService.setDeckDataInStorage(updatedDeck);
     this.deck.next(updatedDeck);

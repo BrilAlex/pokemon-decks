@@ -36,10 +36,10 @@
             <p class="details-row">Base experience: {{pokemon.base_experience}}</p>
             <button
               (click)="addToDeck()"
-              [disabled]="pokemon.isAddedToDeck"
+              [disabled]="isAddedToDeck"
               class="addToDeck"
             >
-              {{pokemon.isAddedToDeck ? "In Deck" : "Add to Deck"}}
+              {{isAddedToDeck ? "In Deck" : "Add to Deck"}}
             </button>
           </div>
         </div>
