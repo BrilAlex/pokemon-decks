@@ -1,7 +1,7 @@
-import {Component, OnInit} from "@angular/core";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnDestroy, OnInit} from "@angular/core";
+import {ActivatedRoute, Params} from "@angular/router";
 import {PokemonService} from "../services/pokemon.service";
-import {combineLatest, map, Observable} from "rxjs";
+import {combineLatest, map, Observable, Subscription} from "rxjs";
 import {Pokemon} from "../models/pokemon.models";
 import {AppService} from "../../../core/services/app.service";
 import {RequestStatus} from "../../../core/models/app.models";
@@ -16,8 +16,8 @@ import {DeckPageService} from "../../deck/services/deck-page.service";
     "./pokemon.component.css",
   ],
 })
-export class PokemonComponent implements OnInit {
-  nameParam = "";
+export class PokemonComponent implements OnInit, OnDestroy {
+  paramSubscription!: Subscription;
   appStatus$!: Observable<RequestStatus>;
   pokemon$!: Observable<Pokemon>;
   isAddedToDeck = false;
@@ -32,15 +32,20 @@ export class PokemonComponent implements OnInit {
   };
 
   ngOnInit() {
-    this.nameParam = this.route.snapshot.paramMap.get("nameParam")!;
     this.appStatus$ = this.appService.appStatus$;
-    this.pokemonService.getPokemon(this.nameParam);
+    this. paramSubscription = this.route.params.subscribe((params: Params) => {
+      this.pokemonService.getPokemon(params["nameParam"]);
+    });
     this.pokemon$ = combineLatest([this.pokemonService.pokemon$, this.deckService.deck$]).pipe(
       map(([pokemon, deck]) => {
         this.isAddedToDeck = !!deck.find(({id}) => id === pokemon.id);
         return pokemon;
       }),
     );
+  };
+
+  ngOnDestroy() {
+    this.paramSubscription.unsubscribe();
   };
 
   goBack() {
