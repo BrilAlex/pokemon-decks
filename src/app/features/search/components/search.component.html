@@ -3,7 +3,7 @@
     [formControl]="searchQuery"
     placeholder="Search pokemon by name or id"
   />
-  <ng-container *ngIf="results$ | async as results">
+  <ng-container *ngIf="isVisible && (results$ | async) as results">
     <div class="results">
       <div *ngIf="results.totalItems === 0 else content">
         <p class="result">No pokemon found</p>
